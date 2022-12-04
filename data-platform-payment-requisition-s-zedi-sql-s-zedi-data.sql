@@ -5,7 +5,10 @@ CREATE TABLE `data_platform_payment_requisition_s_zedi_s_zedi_data`
   `PayerPaymentRequisitionID`      int(6) NOT NULL,
   `PayerPaymentRequisitionItem`    int(6) NOT NULL,
   `Payee`                          int(12) NOT NULL,
+  `BillFromParty`                  int(12) NOT NULL,
+  `BillToParty`                    int(12) NOT NULL,
   `Buyer`                          int(12) NOT NULL,
+  `Seller`                         int(12) NOT NULL,
   `SubsetSpecifiedID`              varchar(3) NOT NULL,        -- "Z01"            業界区分
   `BusinessProcessSpecifiedID`     varchar(3) NOT NULL,        -- "001"            データ区分
   `ExchangedDocumentID`            varchar(40) DEFAULT NULL,   -- "123456-01"      支払通知番号
@@ -29,7 +32,10 @@ CREATE TABLE `data_platform_payment_requisition_s_zedi_s_zedi_data`
     
     CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataPayer_fk` FOREIGN KEY (`Payer`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
     CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataPayee_fk` FOREIGN KEY (`Payee`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
-    CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataBuyer_fk` FOREIGN KEY (`Buyer`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`)
+    CONSTRAINT `DataPlatformPaymentRequisitionItemDataBillFromParty_fk` FOREIGN KEY (`BillFromParty`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
+    CONSTRAINT `DataPlatformPaymentRequisitionItemDataBillToParty_fk` FOREIGN KEY (`BillToParty`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
+    CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataBuyer_fk` FOREIGN KEY (`Buyer`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
+    CONSTRAINT `DataPlatformPaymentRequisitionItemDataSeller_fk` FOREIGN KEY (`Seller`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`)
 
 ) ENGINE = InnoDB
 DEFAULT CHARSET = utf8mb4;

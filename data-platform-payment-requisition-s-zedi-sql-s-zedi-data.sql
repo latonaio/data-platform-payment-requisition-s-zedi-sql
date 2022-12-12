@@ -1,9 +1,9 @@
 CREATE TABLE `data_platform_payment_requisition_s_zedi_s_zedi_data`
 (
+  `PayerPaymentRequisitionID`      int(16) NOT NULL,
+  `PayerPaymentRequisitionItem`    int(6) NOT NULL,
   `Payer`                          int(12) NOT NULL,
   `PayerPaymentDate`               date NOT NULL,
-  `PayerPaymentRequisitionID`      int(6) NOT NULL,
-  `PayerPaymentRequisitionItem`    int(6) NOT NULL,
   `Payee`                          int(12) NOT NULL,
   `BillFromParty`                  int(12) NOT NULL,
   `BillToParty`                    int(12) NOT NULL,
@@ -28,8 +28,9 @@ CREATE TABLE `data_platform_payment_requisition_s_zedi_s_zedi_data`
   `TaxTotalAmount`                 varchar(10) NOT NULL,       -- "1800"           税額（合計）
   `Content`                        varchar(140) DEFAULT NULL,  -- "サンプルデータ"  備考
 
-    PRIMARY KEY (`Payer`, `PayerPaymentDate`, `PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`),
-    
+    PRIMARY KEY (`PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`),
+
+    CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIData_fk` FOREIGN KEY (`PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`) REFERENCES `data_platform_payment_requisition_item_data` (`PayerPaymentRequisitionID`, `PayerPaymentRequisitionItem`),
     CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataPayer_fk` FOREIGN KEY (`Payer`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
     CONSTRAINT `DataPlatformPaymentRequisitionSZEDISZEDIDataPayee_fk` FOREIGN KEY (`Payee`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
     CONSTRAINT `DataPlatformPaymentRequisitionItemDataBillFromParty_fk` FOREIGN KEY (`BillFromParty`) REFERENCES `data_platform_business_partner_general_data` (`BusinessPartner`),
